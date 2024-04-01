@@ -13,6 +13,7 @@ All-Pairs Shortest Path
 ## Input Generator usage:
 `input_generator.cpp` is used to generate a graph in the format used by the other programs.
 It takes the following arguments:
+
     * `--nNodes`: Takes an integer. Sets the number of nodes to be used in the graph. Defaults to 100. Cannot be 1 or less.
     * `--nEdges`: Takes an integer. Sets the number of outbound edges each node should have. Defaults to 5. Cannot be 0 or less.
     * `--randEdges`: Takes no parameter, just using this flag enables this mode. Randomizes the number of edges out of each node. When enabled, the number of edges on a node ranges from 0 to 2*nEdges, with a normal distribution centered on nEdges.
