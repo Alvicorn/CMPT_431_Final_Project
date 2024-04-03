@@ -11,7 +11,8 @@ COMMON = core/cxxopts.h core/get_time.h
 SERIAL = all_pairs_serial
 PARALLEL = all_pairs_parallel
 DISTRIBUTED = all_pairs_distributed
-ALL = $(SERIAL) $(PARALLEL) $(DISTRIBUTED)
+GENERATOR = input_generator
+ALL = $(SERIAL) $(PARALLEL) $(DISTRIBUTED) $(GENERATOR)
 
 all: $(ALL)
 
@@ -22,6 +23,9 @@ $(PARALLEL): %: %.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
 $(DISTRIBUTED): %: %.cpp 
+	$(MPICXX) $(CXXFLAGS) -o $@ $<
+
+$(GENERATOR): %: %.cpp 
 	$(MPICXX) $(CXXFLAGS) -o $@ $<
 
 .PHONY: clean clean_windows
