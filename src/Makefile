@@ -12,7 +12,9 @@ SERIAL = all_pairs_serial
 PARALLEL = all_pairs_parallel
 DISTRIBUTED = all_pairs_distributed
 GENERATOR = input_generator
+CXX_UNIT_TESTS = tests/test_serial_utils
 ALL = $(SERIAL) $(PARALLEL) $(DISTRIBUTED) $(GENERATOR)
+
 
 all: $(ALL)
 
@@ -26,7 +28,14 @@ $(DISTRIBUTED): %: %.cpp
 	$(MPICXX) $(CXXFLAGS) -o $@ $<
 
 $(GENERATOR): %: %.cpp 
-	$(MPICXX) $(CXXFLAGS) -o $@ $<
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(CXX_UNIT_TESTS): %: %.cpp
+		$(CXX) $(CXXFLAGS) -o $@ $<
+
+
+tests: $(CXX_UNIT_TESTS) $(SERIAL)
+	python tests/tests.py
 
 .PHONY: clean clean_windows
 
