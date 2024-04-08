@@ -22,7 +22,7 @@ $(SERIAL): %: %.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
 $(PARALLEL): %: %.cpp 
-	$(CXX) $(CXXFLAGS) -o $@ $<
+	$(CXX) $(CXXFLAGS) -o -pthread $@ $<
 
 $(DISTRIBUTED): %: %.cpp 
 	$(MPICXX) $(CXXFLAGS) -o $@ $<
