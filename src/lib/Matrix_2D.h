@@ -43,6 +43,16 @@ public:
      */
     int get_dimension() { return dimension; }
     
+
+    void update_matrix(Matrix_2D* new_matrix) {
+        for (int row = 0; row < this->dimension; row++) {
+            for (int column = 0; column < this->dimension; column++) {
+                this->matrix[row][column] = new_matrix->get_matrix_value(row, column);
+            }
+        }
+    }
+
+
     /**
      * @brief Get the matrix value at the given index.
      * 
@@ -80,7 +90,8 @@ public:
             return true;
         }
     }
-    
+
+
     /**
      * @brief Print the matrix to the console for debugging 
      * 
