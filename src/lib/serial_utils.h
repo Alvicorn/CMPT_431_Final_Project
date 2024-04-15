@@ -49,9 +49,6 @@ void generate_edges(
 
 bool all_pairs_serial(std::vector<std::string> csv_lines) {
     
-    timer serial_timer;
-    serial_timer.start();
-
     std::map<int, std::vector<Edge>> edges;
     for (int i = 0; i < csv_lines.size(); i++) {
         edges[i];
@@ -60,6 +57,15 @@ bool all_pairs_serial(std::vector<std::string> csv_lines) {
     
     // initalize the distances
     Matrix_2D* distances = new Matrix_2D(csv_lines.size(), INFINITY_INT);
+    
+    if (distances == NULL) {
+        std::cout << "Memory error!\n";
+        return false;
+    }
+
+    timer serial_timer;
+    serial_timer.start();
+
     for (int vertex = 0; vertex < csv_lines.size(); vertex++) {
         distances->set_matrix_value(vertex,vertex, 0); // self loops have a weight of 0
         for (Edge edge: edges[vertex]) {

@@ -22,7 +22,7 @@ $(SERIAL): %: %.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
 $(PARALLEL): %: %.cpp 
-	$(CXX) $(CXXFLAGS) -o -pthread $@ $<
+	$(CXX) $(CXXFLAGS) -pthread -o $@ $<
 
 $(DISTRIBUTED): %: %.cpp 
 	$(MPICXX) $(CXXFLAGS) -o $@ $<
@@ -34,13 +34,14 @@ $(CXX_UNIT_TESTS): %: %.cpp
 		$(CXX) $(CXXFLAGS) -o $@ $<
 
 
-tests: $(CXX_UNIT_TESTS) $(SERIAL)
+.PHONY: clean clean_windows tests
+
+tests: clean $(CXX_UNIT_TESTS) $(SERIAL) $(PARALLEL)
 	python tests/tests.py
 
-.PHONY: clean clean_windows
-
 clean: 
-	rm -f *o *obj $(ALL)
+	rm -f *o *obj $(ALL) $(CXX_UNIT_TESTS)
+	rm -f *o *obj tests/test_serial_utils
 
 clean_windows:
 	del /Q /F *.exe *.o
